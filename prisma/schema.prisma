@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model File {
+  id          Int        @id  @default(autoincrement())
+  fileName    String
+  uploadedAt  DateTime   @default(now())
+
+  columns     FileColumn[]
+  rows        FileRow[]
+}
+
+model FileColumn {
+  id          Int       @id   @default(autoincrement())
+  fileId      Int
+  columnName  String
+  columnIndex Int
+
+  file  File  @relation(fields: [fileId], references: [id])
+}
+
+model FileRow {
+  id          Int       @id  @default(autoincrement())
+  fileId      Int
+  uniqueRef   String?
+  data        Json
+
+  file  File  @relation(fields: [fileId], references: [id])
+
+  @@index([fileId])
+  @@index([uniqueRef])
+}
+
+model TransactionRecord {
+  id                Int       @id @default(autoincrement())
+
+  reference         String?
+  merchantName      String?
+  paymentMethod     String?
+  paymentSource     String?
+  amount            Float?
+  charges           Float?
+  vat               Float?
+  stampDuty         Float?
+  blusaltCharge     Float?
+  aggregatorCharge  Float?
+  amountSettled     Float?
+  netToCBI          Float?
+  description       String?
+  settlementDue     Float?
+  currency          String?
+  status            String?
+  transactionDate   DateTime?
+  uniqueRef          String?
+
+  createdAt         DateTime  @default(now())
+
+  @@index([transactionDate])
+  @@index([uniqueRef])
+}
+
+
+
+
+
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init

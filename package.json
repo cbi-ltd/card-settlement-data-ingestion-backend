@@ -1,0 +1,42 @@
+{
+  "name": "card-settlement-data-ingestion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/app.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cbi-ltd/card-settlement-data-ingestion-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/cbi-ltd/card-settlement-data-ingestion-backend/issues"
+  },
+  "homepage": "https://github.com/cbi-ltd/card-settlement-data-ingestion-backend#readme",
+  "dependencies": {
+    "@prisma/client": "^4.16.2",
+    "csv-parser": "^3.2.0",
+    "express": "^5.2.1",
+    "file-type": "^21.3.1",
+    "multer": "^2.1.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/multer": "^2.1.0",
+    "@types/node": "^25.4.0",
+    "@types/xlsx": "^0.0.35",
+    "prisma": "^4.16.2",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
