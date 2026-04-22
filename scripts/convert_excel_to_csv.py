@@ -58,7 +58,6 @@ if __name__ == "__main__":
     input_path = sys.argv[1]
     output_path = sys.argv[2]
 
-    # Ensure output directory exists
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
     convert_file(input_path, output_path)

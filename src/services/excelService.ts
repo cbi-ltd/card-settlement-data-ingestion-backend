@@ -320,12 +320,23 @@ export async function ingestExcel2(filePath: string, originalName: string, enfor
       }
 
       // Prepare FileRow entries
-      const fileRows = jsonData.map(row => {
+      const fileRows = jsonData.map((row, rowIndex) => {
         const cleaned: any = {};
         Object.entries(row).forEach(([k, v]) => cleaned[k.trim()] = v);
 
+        // Fix Reference column if it contains #NAME?
+        let reference = cleaned["Reference"];
+        if (reference === "#NAME?") {
+          const colLetter = "A";
+          const cellAddress = `${colLetter}${rowIndex + 1}`; 
+          const cell = sheet[cellAddress];
+          if (cell && cell.f) {
+            reference = cell.f.replace(/=|@/g, "");
+            cleaned["Reference"] = reference;
+          }
+        }
+
         // generate uniqueRef
-        const reference = cleaned["Reference"];
         const txDate = cleaned["Transaction Date"];
         const uniqueRef = reference && txDate ? reference + txDate.replace(/[-:TZ.]/g, "") : null;
 
