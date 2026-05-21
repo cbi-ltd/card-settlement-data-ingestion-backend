@@ -15,11 +15,12 @@ model File {
 
   columns     FileColumn[]
   rows        FileRow[]
+  transactions TransactionRecord[]
 }
 
 model FileColumn {
   id          Int       @id   @default(autoincrement())
-  fileId      Int
+  fileId      Int       
   columnName  String
   columnIndex Int
 
@@ -40,6 +41,9 @@ model FileRow {
 
 model TransactionRecord {
   id                Int       @id @default(autoincrement())
+
+  fileId            Int       @default(1)
+  file              File      @relation(fields: [fileId], references: [id])
 
   reference         String?
   merchantName      String?
@@ -62,6 +66,7 @@ model TransactionRecord {
 
   createdAt         DateTime  @default(now())
 
+  @@index([fileId])
   @@index([transactionDate])
   @@index([uniqueRef])
 }

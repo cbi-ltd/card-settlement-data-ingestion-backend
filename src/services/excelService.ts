@@ -359,6 +359,7 @@ export async function ingestExcel2(filePath: string, originalName: string, enfor
         if (!d["Reference"] || !d["Transaction Date"]) return null;
 
         return {
+          fileId,
           reference: d["Reference"],
           merchantName: d["Merchant Name"],
           paymentMethod: d["Payment Method"],
